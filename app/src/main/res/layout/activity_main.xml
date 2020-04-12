@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+            name="diceVm"
+            type="com.pichaeljanson.diceroll.DiceViewModel" />
+    </data>
+
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@{ContextCompat.getColor(context, diceVm.backgroundRes)}"
+        tools:context=".MainActivity">
+
+        <ImageView
+            android:layout_width="192dp"
+            android:layout_height="192dp"
+            android:layout_gravity="center"
+            android:visibility="@{diceVm.visibility}"
+            app:imageResource="@{diceVm.diceImageRes}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/roll_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/margin_default"
+            android:onClick="@{() -> diceVm.roll()}"
+            android:src="@drawable/ic_roll" />
+
+        <!--
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/anaheim"
+            android:gravity="center"
+            android:text="@{diceVm.diceValue}"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/dice_text_size"
+            android:visibility="@{diceVm.visibility}" />
+        -->
+
+    </FrameLayout>
+</layout>
