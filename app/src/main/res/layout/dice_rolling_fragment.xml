@@ -35,17 +35,5 @@
             android:onClick="@{() -> diceVm.roll()}"
             android:src="@drawable/ic_roll" />
 
-        <!--
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/anaheim"
-            android:gravity="center"
-            android:text="@{diceVm.diceValue}"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/dice_text_size"
-            android:visibility="@{diceVm.visibility}" />
-        -->
-
     </FrameLayout>
 </layout>
