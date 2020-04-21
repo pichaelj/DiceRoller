@@ -33,8 +33,8 @@
                 android:layout_height="152dp"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center"
-                android:visibility="@{diceVm.diceVisibility0}"
-                app:imageResource="@{diceVm.diceImageRes0}"
+                app:diceVisibility="@{diceVm.diceVisibility0}"
+                app:diceImage="@{diceVm.dice0}"
 
                 app:layout_constraintVertical_chainStyle="packed"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -48,8 +48,8 @@
                 android:layout_width="152dp"
                 android:layout_height="152dp"
                 android:adjustViewBounds="true"
-                android:visibility="@{diceVm.diceVisibility1}"
-                app:imageResource="@{diceVm.diceImageRes1}"
+                app:diceVisibility="@{diceVm.diceVisibility1}"
+                app:diceImage="@{diceVm.dice1}"
 
                 app:layout_constraintTop_toTopOf="@+id/dice_frag_0"
                 app:layout_constraintBottom_toBottomOf="@+id/dice_frag_0"
@@ -61,8 +61,8 @@
                 android:layout_width="152dp"
                 android:layout_height="152dp"
                 android:adjustViewBounds="true"
-                android:visibility="@{diceVm.diceVisibility2}"
-                app:imageResource="@{diceVm.diceImageRes2}"
+                app:diceVisibility="@{diceVm.diceVisibility2}"
+                app:diceImage="@{diceVm.dice2}"
 
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintTop_toBottomOf="@+id/dice_frag_0"
@@ -75,8 +75,8 @@
                 android:layout_width="152dp"
                 android:layout_height="152dp"
                 android:adjustViewBounds="true"
-                android:visibility="@{diceVm.diceVisibility3}"
-                app:imageResource="@{diceVm.diceImageRes3}"
+                app:diceVisibility="@{diceVm.diceVisibility3}"
+                app:diceImage="@{diceVm.dice3}"
 
                 app:layout_constraintTop_toTopOf="@+id/dice_frag_2"
                 app:layout_constraintBottom_toBottomOf="@+id/dice_frag_2"
@@ -88,8 +88,8 @@
                 android:layout_width="152dp"
                 android:layout_height="152dp"
                 android:adjustViewBounds="true"
-                android:visibility="@{diceVm.diceVisibility4}"
-                app:imageResource="@{diceVm.diceImageRes4}"
+                app:diceVisibility="@{diceVm.diceVisibility4}"
+                app:diceImage="@{diceVm.dice4}"
 
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintTop_toBottomOf="@id/dice_frag_2"
@@ -103,7 +103,6 @@
                 android:layout_height="152dp"
                 android:adjustViewBounds="true"
                 android:visibility="gone"
-                app:imageResource="@{diceVm.diceImageRes4}"
 
                 app:layout_constraintTop_toTopOf="@+id/dice_frag_4"
                 app:layout_constraintBottom_toBottomOf="@+id/dice_frag_4"
