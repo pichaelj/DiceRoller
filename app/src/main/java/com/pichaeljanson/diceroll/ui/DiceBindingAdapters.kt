@@ -1,5 +1,6 @@
 package com.pichaeljanson.diceroll.ui
 
+import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,11 @@ fun ImageView.setDiceImage(value: Int) {
 
 @BindingAdapter("diceVisibility")
 fun ImageView.setDiceVisibility(visibility: Int) {
-    TransitionManager.beginDelayedTransition(this.rootView as ViewGroup)
+    val transition = AutoTransition()
+    transition.duration = 100
+    transition.startDelay = 0
+
+    TransitionManager.beginDelayedTransition(this.rootView as ViewGroup, transition)
 
     this.visibility = visibility
 }
