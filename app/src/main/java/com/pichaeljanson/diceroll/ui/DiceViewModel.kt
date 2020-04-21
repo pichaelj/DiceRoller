@@ -98,42 +98,20 @@ class DiceViewModel (private val dice: Dice) : ViewModel() {
 
     // region Image
 
-    val diceImageRes0: LiveData<Int> =
-        Transformations.map(_dice[0].rolledValue) { diceValue ->
-            diceImage(diceValue)
-        }
+    val dice0: LiveData<Int> =
+        Transformations.map(_dice[0].rolledValue) { it }
 
+    val dice1: LiveData<Int> =
+        Transformations.map(_dice[1].rolledValue) { it }
 
-    val diceImageRes1: LiveData<Int> =
-        Transformations.map(_dice[1].rolledValue) { diceValue ->
-            diceImage(diceValue)
-        }
+    val dice2: LiveData<Int> =
+        Transformations.map(_dice[2].rolledValue) { it }
 
-    val diceImageRes2: LiveData<Int> =
-        Transformations.map(_dice[2].rolledValue) { diceValue ->
-            diceImage(diceValue)
-        }
+    val dice3: LiveData<Int> =
+        Transformations.map(_dice[3].rolledValue) { it }
 
-    val diceImageRes3: LiveData<Int> =
-        Transformations.map(_dice[3].rolledValue) { diceValue ->
-            diceImage(diceValue)
-        }
-
-    val diceImageRes4: LiveData<Int> =
-        Transformations.map(_dice[4].rolledValue) { diceValue ->
-            diceImage(diceValue)
-        }
-
-    private fun diceImage(diceValue: Int): Int =
-        when (diceValue) {
-            1 -> R.drawable.ic_inverted_dice_1
-            2 -> R.drawable.ic_inverted_dice_2
-            3 -> R.drawable.ic_inverted_dice_3
-            4 -> R.drawable.ic_inverted_dice_4
-            5 -> R.drawable.ic_inverted_dice_5
-            6 -> R.drawable.ic_inverted_dice_6
-            else -> throw IndexOutOfBoundsException("Dice value unexpected: $diceValue (Dice sides: 6)")
-        }
+    val dice4: LiveData<Int> =
+        Transformations.map(_dice[4].rolledValue) { it }
 
     // endregion
 }
