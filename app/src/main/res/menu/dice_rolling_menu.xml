@@ -3,11 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_item_edit"
+        android:id="@+id/menu_item_add"
         android:enabled="true"
-        android:title="@string/menu_item_title_edit"
+        android:title="@string/menu_item_title_add"
         android:visible="true"
-        android:icon="@drawable/ic_edit"
+        android:icon="@drawable/ic_add"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_item_remove"
+        android:enabled="true"
+        android:title="@string/menu_item_title_remove"
+        android:visible="true"
+        android:icon="@drawable/ic_remove"
         app:showAsAction="ifRoom" />
 
 </menu>

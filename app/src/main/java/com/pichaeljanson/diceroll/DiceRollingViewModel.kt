@@ -6,7 +6,6 @@ import com.pichaeljanson.diceroll.data.Dice
 import timber.log.Timber
 import java.lang.IllegalArgumentException
 
-
 class DiceRollingViewModelFactory(private var rollListener: RollListener) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

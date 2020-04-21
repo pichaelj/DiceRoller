@@ -13,12 +13,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pichaeljanson.diceroll.databinding.DiceRollingFragmentBinding
+import com.pichaeljanson.diceroll.ui.DiceViewModel
+import com.pichaeljanson.diceroll.ui.DiceViewModelFactory
 import timber.log.Timber
 
 class DiceRollingFragment : Fragment(), RollListener {
 
     private val diceRollingVm: DiceRollingViewModel by viewModels() {
         DiceRollingViewModelFactory(this)
+    }
+
+    private val diceVm: DiceViewModel by viewModels() {
+        DiceViewModelFactory()
     }
 
     private lateinit var binding: DiceRollingFragmentBinding
@@ -34,6 +40,7 @@ class DiceRollingFragment : Fragment(), RollListener {
             inflater, R.layout.dice_rolling_fragment, container, false)
 
         binding.diceRollingVm = diceRollingVm
+        binding.diceVm = diceVm
         binding.lifecycleOwner = this
 
         initRollVibration()
@@ -50,7 +57,8 @@ class DiceRollingFragment : Fragment(), RollListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_edit -> diceRollingVm.toggleEditMode()
+            R.id.menu_item_add -> diceVm.incrementDice()
+            R.id.menu_item_remove -> diceVm.decrementDice()
         }
 
         return super.onOptionsItemSelected(item)
@@ -61,11 +69,7 @@ class DiceRollingFragment : Fragment(), RollListener {
     // region RollListener implementation
 
     override fun onRoll() {
-        for (frag in childFragmentManager.fragments){
-            if (frag is RollListener) {
-                frag.onRoll()
-            }
-        }
+        diceVm.roll()
     }
 
     // endregion
