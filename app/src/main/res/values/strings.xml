@@ -1,3 +1,7 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Dice.Roll</string>
+
+    <string name="menu_item_title_edit">Edit</string>
+
+    <string name="editing_dice_message" tools:ignore="TypographyEllipsis">Editing dice config...</string>
 </resources>

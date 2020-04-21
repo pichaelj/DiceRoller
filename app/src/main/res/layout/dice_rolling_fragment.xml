@@ -8,23 +8,102 @@
         <import type="androidx.core.content.ContextCompat" />
 
         <variable
-            name="diceVm"
-            type="com.pichaeljanson.diceroll.DiceViewModel" />
+            name="diceRollingVm"
+            type="com.pichaeljanson.diceroll.DiceRollingViewModel" />
     </data>
 
     <FrameLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@{ContextCompat.getColor(context, diceVm.backgroundRes)}"
+        android:background="@{ContextCompat.getColor(context, diceRollingVm.backgroundRes)}"
         tools:context=".MainActivity">
 
-        <ImageView
-            android:layout_width="192dp"
-            android:layout_height="192dp"
-            android:layout_gravity="center"
-            android:visibility="@{diceVm.visibility}"
-            app:imageResource="@{diceVm.diceImageRes}" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_half">
+
+            <fragment
+                android:id="@+id/dice_frag_0"
+                android:name="com.pichaeljanson.diceroll.ui.DiceFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/dice_frag_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dice_frag_1"/>
+
+            <fragment
+                android:id="@+id/dice_frag_1"
+                android:name="com.pichaeljanson.diceroll.ui.DiceFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toTopOf="@+id/dice_frag_0"
+                app:layout_constraintBottom_toBottomOf="@+id/dice_frag_0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dice_frag_0"/>
+
+            <fragment
+                android:id="@+id/dice_frag_2"
+                android:name="com.pichaeljanson.diceroll.ui.DiceFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintTop_toBottomOf="@+id/dice_frag_0"
+                app:layout_constraintBottom_toTopOf="@+id/dice_frag_4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dice_frag_3"/>
+
+            <fragment
+                android:id="@+id/dice_frag_3"
+                android:name="com.pichaeljanson.diceroll.ui.DiceFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toTopOf="@+id/dice_frag_2"
+                app:layout_constraintBottom_toBottomOf="@+id/dice_frag_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dice_frag_2"/>
+
+            <fragment
+                android:id="@+id/dice_frag_4"
+                android:name="com.pichaeljanson.diceroll.ui.DiceFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintTop_toBottomOf="@id/dice_frag_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dice_frag_5"/>
+
+            <fragment
+                android:id="@+id/dice_frag_5"
+                android:name="com.pichaeljanson.diceroll.ui.TestDiceFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toTopOf="@+id/dice_frag_4"
+                app:layout_constraintBottom_toBottomOf="@+id/dice_frag_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dice_frag_4"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            style="@style/text_normal_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_margin="@dimen/margin_default"
+            android:gravity="center"
+            android:text="@string/editing_dice_message"
+            android:visibility="@{diceRollingVm.editModeVisibility}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/roll_fab"
@@ -32,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/margin_default"
-            android:onClick="@{() -> diceVm.roll()}"
+            android:onClick="@{() -> diceRollingVm.roll()}"
             android:src="@drawable/ic_roll" />
 
     </FrameLayout>
