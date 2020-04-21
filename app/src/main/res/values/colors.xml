@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#323232</color>
-    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryDark">@color/black</color>
     <color name="colorAccent">#323232</color>
 
     <color name="colorBackground0">#fc5c65</color>
@@ -10,6 +10,7 @@
     <color name="colorBackground3">#ffe340</color>
 
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 
     <color name="diceColor">@color/colorPrimaryDark</color>
     <color name="rollColor">@color/white</color>

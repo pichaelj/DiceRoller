@@ -5,36 +5,42 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.pichaeljanson.diceroll.databinding.DiceRollingFragmentBinding
+import com.pichaeljanson.diceroll.ui.DiceViewModel
+import com.pichaeljanson.diceroll.ui.DiceViewModelFactory
+import timber.log.Timber
 
-class DiceRollingFragment : Fragment() {
+class DiceRollingFragment : Fragment(), RollListener {
+
+    private val diceRollingVm: DiceRollingViewModel by viewModels() {
+        DiceRollingViewModelFactory(this)
+    }
+
+    private val diceVm: DiceViewModel by viewModels() {
+        DiceViewModelFactory()
+    }
 
     private lateinit var binding: DiceRollingFragmentBinding
 
-    private lateinit var viewModelFactory: DiceViewModelFactory
-
-    private lateinit var viewModel: DiceViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
+
         binding = DataBindingUtil.inflate(
             inflater, R.layout.dice_rolling_fragment, container, false)
 
-        viewModelFactory = DiceViewModelFactory(6)
-
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(DiceViewModel::class.java)
-
-        binding.diceVm = viewModel
+        binding.diceRollingVm = diceRollingVm
+        binding.diceVm = diceVm
         binding.lifecycleOwner = this
 
         initRollVibration()
@@ -42,11 +48,37 @@ class DiceRollingFragment : Fragment() {
         return binding.root
     }
 
-// region Vibration
+    // region Options Menu
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.dice_rolling_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_item_add -> diceVm.incrementDice()
+            R.id.menu_item_remove -> diceVm.decrementDice()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    // endregion
+
+    // region RollListener implementation
+
+    override fun onRoll() {
+        diceVm.roll()
+    }
+
+    // endregion
+
+    // region Vibration
 
     private fun initRollVibration(){
-        viewModel.apply {
-            eventVibrate.observe(this@DiceRollingFragment, Observer { vibType ->
+        diceRollingVm.apply {
+            eventVibrate.observe(viewLifecycleOwner, Observer { vibType ->
                 if (vibType == VibrationType.ROLL){
                     vibrate(vibType.pattern)
                     handledVibration()
