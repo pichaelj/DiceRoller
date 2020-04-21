@@ -48,16 +48,75 @@ class DiceViewModel (private val dice: Dice) : ViewModel() {
         }
 
         _numberOfDice.value = diceCount
+
+        tryChangeAddDiceEnabled()
+        tryChangeRemoveDiceEnabled()
     }
 
     fun decrementDice() {
         var diceCount = _numberOfDice.value
 
-        if (diceCount != null && diceCount > 1){
+        if (diceCount != null && diceCount > 1) {
             diceCount -= 1
         }
 
         _numberOfDice.value = diceCount
+
+        tryChangeAddDiceEnabled()
+        tryChangeRemoveDiceEnabled()
+    }
+
+    // endregion
+
+    // region Add/Remove Dice Enabled
+
+    private var _addDiceEnabled = true
+
+    private var _removeDiceEnabled = false
+
+    val addDiceEnabled: Boolean
+        get() = _addDiceEnabled
+
+    val removeDiceEnabled: Boolean
+        get() = _removeDiceEnabled
+
+    private fun tryChangeAddDiceEnabled() {
+        var diceCount = _numberOfDice.value
+
+        if (diceCount != null){
+            var newEnabled = diceCount < MAX_DICE
+
+            if (newEnabled != _addDiceEnabled) {
+                _addDiceEnabled = newEnabled
+                notifyEventMenuRefresh()
+            }
+        }
+    }
+
+    private fun tryChangeRemoveDiceEnabled() {
+        var diceCount = _numberOfDice.value
+
+        if (diceCount != null) {
+            var newEnabled = diceCount > 1
+
+            if (newEnabled != _removeDiceEnabled) {
+                _removeDiceEnabled = newEnabled
+                notifyEventMenuRefresh()
+            }
+        }
+    }
+
+    private var _eventMenuRefresh = MutableLiveData<Boolean>(false)
+
+    private fun notifyEventMenuRefresh(){
+        _eventMenuRefresh.value = true
+    }
+
+    val eventMenuRefresh: LiveData<Boolean>
+        get() = _eventMenuRefresh
+
+    fun notifyEventMenuRefreshHandled(){
+        _eventMenuRefresh.value = false
     }
 
     // endregion

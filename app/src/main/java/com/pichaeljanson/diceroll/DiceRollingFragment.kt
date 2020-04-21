@@ -43,6 +43,7 @@ class DiceRollingFragment : Fragment(), RollListener {
         binding.diceVm = diceVm
         binding.lifecycleOwner = this
 
+        initEventMenuRefresh()
         initRollVibration()
 
         return binding.root
@@ -50,9 +51,27 @@ class DiceRollingFragment : Fragment(), RollListener {
 
     // region Options Menu
 
+    private fun initEventMenuRefresh() {
+        diceVm.apply {
+            eventMenuRefresh.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    activity?.invalidateOptionsMenu()
+                    notifyEventMenuRefreshHandled()
+                }
+            })
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.dice_rolling_menu, menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+
+        menu.findItem(R.id.menu_item_add).isVisible = diceVm.addDiceEnabled
+        menu.findItem(R.id.menu_item_remove).isVisible = diceVm.removeDiceEnabled
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
