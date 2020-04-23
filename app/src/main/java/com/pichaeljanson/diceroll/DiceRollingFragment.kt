@@ -70,8 +70,8 @@ class DiceRollingFragment : Fragment(), RollListener {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
 
-        menu.findItem(R.id.menu_item_add).isVisible = diceVm.addDiceEnabled
-        menu.findItem(R.id.menu_item_remove).isVisible = diceVm.removeDiceEnabled
+        menu.findItem(R.id.menu_item_add).isEnabled = diceVm.addDiceEnabled
+        menu.findItem(R.id.menu_item_remove).isEnabled = diceVm.removeDiceEnabled
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
