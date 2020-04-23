@@ -127,7 +127,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/margin_default"
-            android:onClick="@{() -> diceRollingVm.roll()}"
+            android:clickable="@{!diceRollingVm.rolling}"
+            android:onClick="@{() -> diceRollingVm.startRoll()}"
             android:src="@drawable/ic_roll" />
 
     </FrameLayout>

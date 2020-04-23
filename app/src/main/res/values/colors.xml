@@ -8,6 +8,7 @@
     <color name="colorBackground1">#36fe91</color>
     <color name="colorBackground2">#55baf2</color>
     <color name="colorBackground3">#ffe340</color>
+    <color name="rollingBackground">#ababab</color>
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>

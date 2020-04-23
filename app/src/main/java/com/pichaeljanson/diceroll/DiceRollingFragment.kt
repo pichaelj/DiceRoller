@@ -6,21 +6,20 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.*
-import android.widget.Toast
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import com.pichaeljanson.diceroll.databinding.DiceRollingFragmentBinding
 import com.pichaeljanson.diceroll.ui.DiceViewModel
 import com.pichaeljanson.diceroll.ui.DiceViewModelFactory
-import timber.log.Timber
 
-class DiceRollingFragment : Fragment(), RollListener {
+class DiceRollingFragment : Fragment() {
 
     private val diceRollingVm: DiceRollingViewModel by viewModels() {
-        DiceRollingViewModelFactory(this)
+        DiceRollingViewModelFactory()
     }
 
     private val diceVm: DiceViewModel by viewModels() {
@@ -44,6 +43,7 @@ class DiceRollingFragment : Fragment(), RollListener {
         binding.lifecycleOwner = this
 
         initEventMenuRefresh()
+        initRollListeners()
         initRollVibration()
 
         return binding.root
@@ -85,10 +85,53 @@ class DiceRollingFragment : Fragment(), RollListener {
 
     // endregion
 
-    // region RollListener implementation
+    // region Rolling
 
-    override fun onRoll() {
+    private fun initRollListeners() {
+        diceRollingVm.startRollEvent.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                onStartRoll()
+                diceRollingVm.startRollEventHandled()
+            }
+        })
+
+        diceRollingVm.finishRollEvent.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                onFinishRoll()
+                diceRollingVm.finishRollHandled()
+            }
+        })
+    }
+
+    private fun onStartRoll() {
+        diceVm.startRoll()
+
+        // Animate dice images
+        val rotateAnim = RotateAnimation(
+            0f, 360f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        )
+        rotateAnim.duration = 250
+        rotateAnim.repeatCount = Animation.INFINITE
+        rotateAnim.repeatMode = Animation.RESTART
+
+        binding.diceFrag0.startAnimation(rotateAnim)
+        binding.diceFrag1.startAnimation(rotateAnim)
+        binding.diceFrag2.startAnimation(rotateAnim)
+        binding.diceFrag3.startAnimation(rotateAnim)
+        binding.diceFrag4.startAnimation(rotateAnim)
+    }
+
+    private fun onFinishRoll() {
         diceVm.roll()
+
+        // Stop animations
+        binding.diceFrag0.clearAnimation()
+        binding.diceFrag1.clearAnimation()
+        binding.diceFrag2.clearAnimation()
+        binding.diceFrag3.clearAnimation()
+        binding.diceFrag4.clearAnimation()
     }
 
     // endregion

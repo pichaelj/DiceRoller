@@ -6,6 +6,9 @@ import timber.log.Timber
 import java.util.concurrent.ThreadLocalRandom
 
 class Dice(sides: Int) {
+    companion object {
+        val ROLLING_VALUE = 0
+    }
 
     private val _sides = MutableLiveData<Int>(sides)
 
@@ -13,6 +16,10 @@ class Dice(sides: Int) {
 
     val rolledValue: LiveData<Int>
         get() = _rolledValue
+
+    fun setIsRolling() {
+        _rolledValue.value = ROLLING_VALUE
+    }
 
     fun roll() {
         _rolledValue.value = ThreadLocalRandom.current().nextInt(6) + 1
