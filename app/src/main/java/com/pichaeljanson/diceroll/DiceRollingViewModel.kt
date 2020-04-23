@@ -1,27 +1,94 @@
 package com.pichaeljanson.diceroll
 
+import android.os.Handler
 import android.view.View
 import androidx.lifecycle.*
-import com.pichaeljanson.diceroll.data.Dice
+import com.pichaeljanson.diceroll.utils.CombinedLiveData
 import timber.log.Timber
 import java.lang.IllegalArgumentException
 
-class DiceRollingViewModelFactory(private var rollListener: RollListener) : ViewModelProvider.Factory {
+class DiceRollingViewModelFactory : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DiceRollingViewModel::class.java)){
-            return DiceRollingViewModel(rollListener) as T
+            return DiceRollingViewModel() as T
         }
 
         throw IllegalArgumentException("Unknown DiceViewModel class")
     }
 }
 
-interface RollListener {
-    fun onRoll()
-}
+class DiceRollingViewModel : ViewModel() {
 
-class DiceRollingViewModel(private var rollListener: RollListener) : ViewModel() {
+    // region Rolling
+
+    private var _handler = Handler()
+
+    private var _rolling = MutableLiveData<Boolean>(false)
+
+    val rolling: LiveData<Boolean>
+        get() = _rolling
+
+    private fun setRolling(rolling: Boolean){
+        _rolling.value = rolling
+    }
+
+    // region Start Rolling Event
+
+    private var _startRollEvent = MutableLiveData<Boolean>(false)
+
+    val startRollEvent: LiveData<Boolean>
+        get() = _startRollEvent
+
+    fun startRollEventHandled() {
+        _startRollEvent.value = false
+    }
+
+    private fun setStartRollEvent() {
+        _startRollEvent.value = true
+    }
+
+    // endregion
+
+    // region End Rolling Event
+
+    private var _finishRollEvent = MutableLiveData<Boolean>(false)
+
+    val finishRollEvent: LiveData<Boolean>
+        get()= _finishRollEvent
+
+    fun finishRollHandled() {
+        _finishRollEvent.value = false
+    }
+
+    private fun setFinishRollEvent() {
+        _finishRollEvent.value = true
+    }
+
+    // endregion
+
+    fun startRoll() {
+        Timber.d("startRoll()")
+        setRolling(true)
+        setStartRollEvent()
+
+        vibrate()
+
+        // Finish the roll later
+        _handler.postDelayed({
+            finishRoll()
+        }, 1000)
+    }
+
+    private fun finishRoll() {
+        setRolling(false)
+        setFinishRollEvent()
+
+        incrementBg()
+        vibrate()
+    }
+
+    // endregion
 
     // region Background
 
@@ -32,12 +99,32 @@ class DiceRollingViewModel(private var rollListener: RollListener) : ViewModel()
         R.color.colorBackground3
     )
 
+    private val _showRollingBackground: LiveData<Boolean>
+        get() = _rolling
+
     private val _backgroundResIndex = MutableLiveData<Int>(0)
 
-    val backgroundRes: LiveData<Int> =
+    private val _rollBackgroundRes: LiveData<Int> =
         Transformations.map(_backgroundResIndex) { bgIndex ->
             _backgrounds[bgIndex]
         }
+
+    private fun handleBackgroundChange(rolling: Boolean?, backgroundRes: Int?): Int {
+        if (rolling == null || backgroundRes == null) {
+            return R.color.rollingBackground
+        }
+
+        return if (rolling) {
+            R.color.rollingBackground
+        } else {
+            backgroundRes
+        }
+    }
+
+    val backgroundRes: LiveData<Int> = CombinedLiveData<Boolean, Int, Int>(
+        _showRollingBackground,
+        _rollBackgroundRes,
+        this::handleBackgroundChange)
 
     private fun incrementBg() {
         _backgroundResIndex.value =
@@ -79,12 +166,4 @@ class DiceRollingViewModel(private var rollListener: RollListener) : ViewModel()
     }
 
     // endregion
-
-    fun roll() {
-        Timber.d("roll()")
-        rollListener.onRoll()
-
-        incrementBg()
-        vibrate()
-    }
 }

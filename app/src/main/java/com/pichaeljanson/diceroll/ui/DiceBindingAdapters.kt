@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.pichaeljanson.diceroll.data.Dice
 
 @BindingAdapter("diceImage")
 fun ImageView.setDiceImage(value: Int) {
     setImageResource(when (value) {
+        Dice.ROLLING_VALUE -> com.pichaeljanson.diceroll.R.drawable.ic_inverted_dice_0
         1 -> com.pichaeljanson.diceroll.R.drawable.ic_inverted_dice_1
         2 -> com.pichaeljanson.diceroll.R.drawable.ic_inverted_dice_2
         3 -> com.pichaeljanson.diceroll.R.drawable.ic_inverted_dice_3

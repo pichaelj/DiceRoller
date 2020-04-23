@@ -2,9 +2,6 @@ package com.pichaeljanson.diceroll.ui
 
 import android.view.View
 import androidx.lifecycle.*
-import com.pichaeljanson.diceroll.DiceRollingViewModel
-import com.pichaeljanson.diceroll.R
-import com.pichaeljanson.diceroll.RollListener
 import com.pichaeljanson.diceroll.data.Dice
 import java.lang.IllegalArgumentException
 
@@ -30,9 +27,19 @@ class DiceViewModel (private val dice: Dice) : ViewModel() {
         Dice(6)
     )
 
+    // region Rolling
+
+    private var _rolling = MutableLiveData<Boolean>(false)
+
+    fun startRoll() {
+        _dice.forEach { dice -> dice.setIsRolling() }
+    }
+
     fun roll() {
         _dice.forEach { dice -> dice.roll() }
     }
+
+    // endregion
 
     // region Count
 
