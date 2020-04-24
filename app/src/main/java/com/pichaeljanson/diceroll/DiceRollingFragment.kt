@@ -22,7 +22,7 @@ class DiceRollingFragment : Fragment() {
         DiceRollingViewModelFactory()
     }
 
-    private val diceVm: DiceViewModel by viewModels() {
+    private val  diceVm: DiceViewModel by viewModels() {
         DiceViewModelFactory()
     }
 
@@ -116,22 +116,38 @@ class DiceRollingFragment : Fragment() {
         rotateAnim.repeatCount = Animation.INFINITE
         rotateAnim.repeatMode = Animation.RESTART
 
-        binding.diceFrag0.startAnimation(rotateAnim)
-        binding.diceFrag1.startAnimation(rotateAnim)
-        binding.diceFrag2.startAnimation(rotateAnim)
-        binding.diceFrag3.startAnimation(rotateAnim)
-        binding.diceFrag4.startAnimation(rotateAnim)
+        val diceCount = diceVm.count
+
+        if (diceCount > 0) {
+            binding.dice0Iv.startAnimation(rotateAnim)
+        }
+
+        if (diceCount > 1) {
+            binding.dice1Iv.startAnimation(rotateAnim)
+        }
+
+        if (diceCount > 2) {
+            binding.dice2Iv.startAnimation(rotateAnim)
+        }
+
+        if (diceCount > 3) {
+            binding.dice3Iv.startAnimation(rotateAnim)
+        }
+
+        if (diceCount > 4) {
+            binding.dice4Iv.startAnimation(rotateAnim)
+        }
     }
 
     private fun onFinishRoll() {
         diceVm.roll()
 
         // Stop animations
-        binding.diceFrag0.clearAnimation()
-        binding.diceFrag1.clearAnimation()
-        binding.diceFrag2.clearAnimation()
-        binding.diceFrag3.clearAnimation()
-        binding.diceFrag4.clearAnimation()
+        binding.dice0Iv.clearAnimation()
+        binding.dice1Iv.clearAnimation()
+        binding.dice2Iv.clearAnimation()
+        binding.dice3Iv.clearAnimation()
+        binding.dice4Iv.clearAnimation()
     }
 
     // endregion

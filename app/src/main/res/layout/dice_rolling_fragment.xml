@@ -24,13 +24,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_half">
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/dice_frag_0"
+                android:id="@+id/dice_0_iv"
                 android:layout_width="152dp"
                 android:layout_height="152dp"
+                android:layout_margin="@dimen/margin_half"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center"
                 app:diceVisibility="@{diceVm.diceVisibility0}"
@@ -39,75 +39,67 @@
                 app:layout_constraintVertical_chainStyle="packed"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/dice_frag_2"
+                app:layout_constraintBottom_toTopOf="@+id/dice_2_iv"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/dice_frag_1"/>
+                app:layout_constraintEnd_toStartOf="@+id/dice_1_iv"/>
 
             <ImageView
-                android:id="@+id/dice_frag_1"
+                android:id="@+id/dice_1_iv"
                 android:layout_width="152dp"
                 android:layout_height="152dp"
+                android:layout_margin="@dimen/margin_half"
                 android:adjustViewBounds="true"
                 app:diceVisibility="@{diceVm.diceVisibility1}"
                 app:diceImage="@{diceVm.dice1}"
 
-                app:layout_constraintTop_toTopOf="@+id/dice_frag_0"
-                app:layout_constraintBottom_toBottomOf="@+id/dice_frag_0"
+                app:layout_constraintTop_toTopOf="@+id/dice_0_iv"
+                app:layout_constraintBottom_toBottomOf="@+id/dice_0_iv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/dice_frag_0"/>
+                app:layout_constraintStart_toEndOf="@+id/dice_0_iv"/>
 
             <ImageView
-                android:id="@+id/dice_frag_2"
+                android:id="@+id/dice_2_iv"
                 android:layout_width="152dp"
                 android:layout_height="152dp"
+                android:layout_margin="@dimen/margin_half"
                 android:adjustViewBounds="true"
                 app:diceVisibility="@{diceVm.diceVisibility2}"
                 app:diceImage="@{diceVm.dice2}"
 
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintTop_toBottomOf="@+id/dice_frag_0"
-                app:layout_constraintBottom_toTopOf="@+id/dice_frag_4"
+                app:layout_constraintTop_toBottomOf="@+id/dice_0_iv"
+                app:layout_constraintBottom_toTopOf="@+id/dice_4_iv"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/dice_frag_3"/>
+                app:layout_constraintEnd_toStartOf="@+id/dice_3_iv"/>
 
             <ImageView
-                android:id="@+id/dice_frag_3"
+                android:id="@+id/dice_3_iv"
                 android:layout_width="152dp"
                 android:layout_height="152dp"
+                android:layout_margin="@dimen/margin_half"
                 android:adjustViewBounds="true"
                 app:diceVisibility="@{diceVm.diceVisibility3}"
                 app:diceImage="@{diceVm.dice3}"
 
-                app:layout_constraintTop_toTopOf="@+id/dice_frag_2"
-                app:layout_constraintBottom_toBottomOf="@+id/dice_frag_2"
+                app:layout_constraintTop_toTopOf="@+id/dice_2_iv"
+                app:layout_constraintBottom_toBottomOf="@+id/dice_2_iv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/dice_frag_2"/>
+                app:layout_constraintStart_toEndOf="@+id/dice_2_iv"/>
 
             <ImageView
-                android:id="@+id/dice_frag_4"
+                android:id="@+id/dice_4_iv"
                 android:layout_width="152dp"
                 android:layout_height="152dp"
+                android:layout_margin="@dimen/margin_half"
                 android:adjustViewBounds="true"
                 app:diceVisibility="@{diceVm.diceVisibility4}"
                 app:diceImage="@{diceVm.dice4}"
 
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintTop_toBottomOf="@id/dice_frag_2"
+                app:layout_constraintTop_toBottomOf="@id/dice_2_iv"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/dice_frag_5"/>
-
-            <ImageView
-                android:id="@+id/dice_frag_5"
-                android:layout_width="152dp"
-                android:layout_height="152dp"
-                android:adjustViewBounds="true"
-                android:visibility="gone"
-
-                app:layout_constraintTop_toTopOf="@+id/dice_frag_4"
-                app:layout_constraintBottom_toBottomOf="@+id/dice_frag_4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/dice_frag_4"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
