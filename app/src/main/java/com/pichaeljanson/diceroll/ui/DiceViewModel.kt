@@ -47,6 +47,9 @@ class DiceViewModel (private val dice: Dice) : ViewModel() {
 
     private var _numberOfDice = MutableLiveData<Int>(1)
 
+    val count: Int
+        get() = _numberOfDice.value!!
+
     fun incrementDice() {
         var diceCount = _numberOfDice.value
 
